@@ -1,7 +1,7 @@
 package javaleetcode.huawei;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class HUAWEISolution {
     /**
@@ -106,7 +106,38 @@ public class HUAWEISolution {
      * 请你找出并返回这两个正序数组的 中位数 。
      * 算法的时间复杂度应该为 O(log (m+n)) 。
      * TODO
+     * 1.归并合并数组
+     * 2.二分查找的思想
     */
+
+    public  double findMedianSortedArraysMethod1(int[] nums1,int[]nums2){
+        int[] mergeRes=new int[nums1.length+nums2.length];
+        int i=0,j=0,k=0;
+        while (i<nums1.length&&j<nums2.length){
+            if(nums1[i]<nums2[j])
+            {
+                mergeRes[k++]=nums1[i++];
+            }
+            else {
+                mergeRes[k++]=nums2[j++];
+            }
+        }
+        //nums1全部合并完
+        if(i==nums1.length){
+            for (;j<nums2.length;j++){
+                mergeRes[k++]=nums2[j];
+            }
+        }
+        else  for (;i<nums1.length;i++){
+            mergeRes[k++]=nums1[i];
+        }
+        if(mergeRes.length%2==0){
+            return (mergeRes[mergeRes.length/2-1]+ mergeRes[ mergeRes.length/2])/2.0;
+        }
+        else {
+            return  mergeRes[mergeRes.length/2];
+        }
+    }
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         if (nums1.length > nums2.length) {
             int[] temp = nums1;
@@ -153,5 +184,42 @@ public class HUAWEISolution {
         }
 
         return 0.0;
+    }
+    /**
+     * 5. 最长回文子串
+     * 给你一个字符串 s，找到 s 中最长的回文子串。
+     * 如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。
+     * TODO
+     * */
+    public String longestPalindrome(String s) {
+        int len=0;
+        HashMap<String,Integer> resMap=new HashMap<>();
+        for (int j=0;j<s.length();j++){
+            for (int i=j;i<=s.length();i++){
+                String temp=s.substring(j,i);
+                if(judgeIsPalindrome(temp)){
+                    len=temp.length();
+                    resMap.put(temp,len);
+                }
+            }
+        }
+        int max=0;
+        String res="";
+        for (String key:
+                resMap.keySet()) {
+            if(max<resMap.get(key)){
+                max=resMap.get(key);
+                res=key;
+            }
+        }
+        return res;
+    }
+    public boolean judgeIsPalindrome(String s){
+        boolean flag=true;
+        for (int i=0;i<s.length()/2;i++){
+            if(s.charAt(i)!=s.charAt(s.length()-1-i))
+                flag=false;
+        }
+        return  flag;
     }
 }
