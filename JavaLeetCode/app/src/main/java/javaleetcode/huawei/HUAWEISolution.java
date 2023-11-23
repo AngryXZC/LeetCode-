@@ -191,6 +191,7 @@ public class HUAWEISolution {
      * 如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。
      * TODO
      * */
+    //自己写的暴力破解
     public String longestPalindrome(String s) {
         int len=0;
         HashMap<String,Integer> resMap=new HashMap<>();
@@ -221,5 +222,110 @@ public class HUAWEISolution {
                 flag=false;
         }
         return  flag;
+    }
+
+    //动态规划
+    public String longestPalindromeDP(String s) {
+        int n = s.length();
+        // 创建一个二维数组 dp，其中 dp[i][j] 表示 s[i:j+1] 是否是回文子串
+        boolean[][] dp = new boolean[n][n];
+
+        int start = 0;
+        int maxLen = 1;
+
+        // 所有长度为 1 的子串都是回文子串
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = true;
+        }
+
+        // 遍历所有长度大于 1 的子串
+        for (int len = 2; len <= n; len++) {
+            for (int i = 0; i <= n - len; i++) {
+                int j = i + len - 1;
+
+                // 对于长度大于 2 的子串，判断首尾字符是否相等，并且去掉首尾后的子串是否是回文
+                if (s.charAt(i) == s.charAt(j) && (len == 2 || dp[i + 1][j - 1])) {
+                    dp[i][j] = true;
+                    // 更新最长回文子串的起始位置和长度
+                    if (len > maxLen) {
+                        start = i;
+                        maxLen = len;
+                    }
+                }
+            }
+        }
+
+        return s.substring(start, start + maxLen);
+    }
+
+    //leetCode官方的暴力解法
+    public String longestPalindromeL(String s){
+        int len=s.length();
+        if(len<2)
+            return  s;
+        int maxLen=1;
+        int begin=0;
+
+        char[] charArray=s.toCharArray();
+        //枚举所有长度严格大于1的子串 charArray[i...j]
+        for (int i=0;i<len-1;i++){
+            for (int j=i+1;j<len;j++){
+                if(j-i+1>maxLen&&validPalindromic(charArray,i,j)){
+                    maxLen=j-i+1;
+                    begin=i;
+                }
+            }
+        }
+        return s.substring(begin,begin+maxLen);
+    }
+    /**
+     * 验证子串s[left,right]是否为回文串
+     */
+    private boolean validPalindromic(char[] charArray,int left,int right){
+        while (left<right){
+            if(charArray[left]!=charArray[right]){
+                return  false;
+            }
+            left++;
+            right--;
+        }
+        return  true;
+    }
+
+    /**
+     * 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
+     *
+     * '.' 匹配任意单个字符
+     * '*' 匹配零个或多个前面的那一个元素
+     * 所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
+    * */
+
+    public void reverseWords(char[] s) {
+        // Step 1: 反转整个字符数组
+        reverse(s, 0, s.length - 1);
+
+        // Step 2: 对每个单词进行反转
+        int start = 0;
+        for (int end = 0; end < s.length; end++) {
+            if (s[end] == ' ') {
+                // 遇到空格，反转当前单词
+                reverse(s, start, end - 1);
+                // 更新下一个单词的起始位置
+                start = end + 1;
+            }
+        }
+
+        // 反转最后一个单词
+        reverse(s, start, s.length - 1);
+    }
+
+    private void reverse(char[] s, int start, int end) {
+        while (start < end) {
+            char temp = s[start];
+            s[start] = s[end];
+            s[end] = temp;
+            start++;
+            end--;
+        }
     }
 }

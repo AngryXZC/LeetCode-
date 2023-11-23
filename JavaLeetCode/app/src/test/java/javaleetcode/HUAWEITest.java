@@ -20,4 +20,10 @@ public class HUAWEITest {
         System.out.println(solution.longestPalindrome(s));
 
     }
+    @Test
+    void lonestPalindromeTestDP(){
+        String s = "babad";
+        String result = new HUAWEISolution().longestPalindromeDP(s);
+        System.out.println(result); // 输出 "bab" 或 "aba"
+    }
 }
