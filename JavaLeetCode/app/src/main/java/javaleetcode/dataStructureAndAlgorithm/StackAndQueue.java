@@ -176,6 +176,37 @@ class MinStack {
         }
     }
 
+    /**
+     * 数据流中的中位数
+     * */
+    class MedianFinder {
+
+        /** initialize your data structure here. */
+        PriorityQueue<Integer> minHeap;
+        PriorityQueue<Integer> maxHeap;
+        public MedianFinder() {
+            minHeap=new PriorityQueue<>(); //小顶堆，保存较大的一半
+            maxHeap=new PriorityQueue<>(((o1, o2) -> (o2.compareTo(o1))));//大顶堆保存
+        }
+
+        public void addNum(int num) {
+            //保证两个堆容量平均
+            //大的数往小堆里加
+            if(minHeap.size()!=maxHeap.size()){
+                minHeap.add(num);
+                maxHeap.add(minHeap.poll());
+            }
+            else {
+               maxHeap.add(num);
+               minHeap.add(maxHeap.poll());
+            }
+
+        }
+
+        public double findMedian() {
+            return maxHeap.size()!=minHeap.size()?minHeap.peek():(minHeap.peek()+maxHeap.peek())/2.0;
+        }
+    }
   public static void main(String[] args){
       int[] putIn={14,2,27,-5,28,13,39};
 
