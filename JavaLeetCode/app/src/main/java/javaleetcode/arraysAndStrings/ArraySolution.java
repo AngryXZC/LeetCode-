@@ -1,4 +1,4 @@
-package javaleetcode.ArraysAndStrings;
+package javaleetcode.arraysAndStrings;
 
 import java.util.ArrayList;
 import java.util.Arrays;

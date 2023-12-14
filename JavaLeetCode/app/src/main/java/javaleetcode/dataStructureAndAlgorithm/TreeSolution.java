@@ -95,5 +95,51 @@ public class TreeSolution {
         if(A == null || A.val != B.val) return false;
         return recur(A.left, B.left) && recur(A.right, B.right);
 }
+/**
+    翻转二叉树
+ */
+    /**
+     java、前序遍历
+     时间O(N)：树的便利
+     空间O(N): 最差情况下，退化为链表，栈的深度为树的结点数
+     思路：对树进行递归前序遍历，并附带交换左右子树操作。(特别地,不存在子树也按交换位置)
+     */
+    public TreeNode mirrorTree(TreeNode root) {
+        if(root==null) return root;
+        else {
+            swap(root);
+            mirrorTree(root.left);
+            mirrorTree(root.right);
+        }
+        return root;
+    }
 
+    public void swap(TreeNode root){
+        if(root==null) return;
+        TreeNode temp=root.right;
+        root.right=root.left;
+        root.left=temp;
+    }
+
+    /**
+     * 极度简便版*/
+    public TreeNode mirrorTreeI(TreeNode root) {
+        if(root == null) return null;
+        TreeNode tmp = root.left;
+        root.left = mirrorTreeI(root.right);
+        root.right = mirrorTreeI(tmp);
+        return root;
+    }
+
+    /**
+     * 判断对称二叉树
+     * */
+    public boolean checkSymmetricTree(TreeNode root) {
+        return root==null||recurI(root.left,root.right);
+    }
+    public boolean recurI(TreeNode left,TreeNode right){
+     if(left==null&&right==null) return true;
+     if(left==null||right==null||left.val!=right.val) return false;
+     return recurI(left.left,right.right)&&recurI(left.right,right.left);
+    }
 }

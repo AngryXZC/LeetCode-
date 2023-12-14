@@ -369,5 +369,126 @@ public class HUAWEISolution {
         o.next=even.next;
         return odd.next;
     }
+    /**
+     * 205. 同构字符串
+     * */
+    public boolean isIsomorphic(String s, String t) {
+        HashMap<Character,Character> map=new HashMap<>();
+        char[] sChar= s.toCharArray(),tChar=t.toCharArray();
+        if(sChar.length!=tChar.length&&sChar.length<2) return  false;
+        else {
+            for (int i = 0; i <sChar.length ; i++) {
+                if(map.containsKey(sChar[i]))
+                {
+                    //相同x的值对应不同的值
+                    if(map.get(sChar[i])!=tChar[i]){
+                        return false;
+                    }
+                }
+                else {
+                    //不同的x值射到相同的Y上
+                    if(map.containsValue(tChar[i]) )
+                        return false;
+                    map.put(sChar[i],tChar[i]);
+                }
+            }
+        }
+        return true;
+    }
+    /**
+     * 206. 反转链表
+     * */
+    public ListNode reverseList(ListNode head) {
+        ListNode node=head;
+        Stack<ListNode> stack=new Stack<>();
+        while (node!=null){
+            stack.push(node);
+            node=node.next;
+        }
+        //尾插法
+        head=new ListNode();
+        node=head;
+        while (!stack.isEmpty()){
+            ListNode temp=stack.pop();
+            temp.next=null;
+            node.next=temp;
+            node=temp;
+        }
+        return head.next;
+    }
+   /**
+    * 415. 字符串相加
+    * */
+   public String addStrings(String num1, String num2) {
+       int i = num1.length() - 1, j = num2.length() - 1, add = 0;
+       StringBuffer ans = new StringBuffer();
+       while (i >= 0 || j >= 0 || add != 0) {
+           int x = i >= 0 ? num1.charAt(i) - '0' : 0;
+           int y = j >= 0 ? num2.charAt(j) - '0' : 0;
+           int result = x + y + add;
+           ans.append(result % 10);
+           add = result / 10;
+           i--;
+           j--;
+       }
+       // 计算完以后的答案需要翻转过来
+       ans.reverse();
+       return ans.toString();
+   }
+   /**
+    *
+    1006. 笨阶乘
+    TODO
+    * */
+   public int clumsy(int n) {
+       return recur(n,0);
+   }
+   public int recur(int n,int s){
+       if(n==1&&(s%4==0||s%4==1))
+           return 1;
+       if(n==0&&(s%4==2||s%4==3))
+           return 0;
+       else if(s%4==0)
+           return n*recur(n-1, ++s);
+       else if (s%4==1)
+           return n/recur(n-1,++s);
+       else if (s%4==2)
+           return n/recur(n-1,++s);
+       else
+           return n/recur(n-1,++s);
+
+   }
+
+   /**
+    * 三数和*/
+   public List<List<Integer>> threeSum(int[] nums) {
+       List<Integer> integerList=new ArrayList<>();
+       for (int a: nums ) {
+           if(integerList.contains(a)){
+               continue;
+           }
+           else integerList.add(a);
+       }
+       int[] numsDistinct= new int[integerList.size()];
+       for (int i = 0; i < integerList.size() ; i++) {
+           numsDistinct[i]=integerList.get(i);
+       }
+       Arrays.sort(numsDistinct);
+       List<List<Integer>> res=new ArrayList<>();
+       for (int i = 0; i < numsDistinct.length; i++) {
+           for (int j = i+1; j < numsDistinct.length; j++) {
+               for (int k = j+1; k < numsDistinct.length; k++) {
+                   if(numsDistinct[i]+numsDistinct[j]+numsDistinct[k]==0){
+                       List<Integer> temp=new ArrayList<>();
+                       temp.add(numsDistinct[i]);
+                       temp.add(numsDistinct[j]);
+                       temp.add(numsDistinct[k]);
+                       res.add(temp);
+                   }
+               }
+           }
+       }
+       return res;
+   }
 }
 
