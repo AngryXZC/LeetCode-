@@ -2,6 +2,7 @@ package javaleetcode.recursion;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class RecursionSolution {
 //使用递归，尾递归，和循环
@@ -199,5 +200,6 @@ public class RecursionSolution {
         a=recursionSolution.sortArray(a);
         System.out.println(Arrays.toString(a));
         return;
+
     }
 }
