@@ -80,6 +80,43 @@ public class EverydaySolution {
         dfs(left.left,right.right,!isOdd);
         dfs(left.right,right.left,!isOdd);
     }
+    /**
+     * 下一个更大的数值平衡数
+     * */
+    public int nextBeautifulNumber(int n) {
+        int res=0;
+        while (true){
+            if(isBeautifulNumber(++n)){
+                res=n;
+                break;
+            }
+        }
+        return res;
+    }
+    boolean isBeautifulNumber(int number){
+        int[] count=new int[10];
+        while (number>0){
+            count[number%10]++;
+            number/=10;
+        }
+        for (int i = 0; i <10 ; i++) {
+            if(count[i]!=0&&count[i]!=i)
+                return false;
+        }
+        return true;
+
+    }
+    /**
+     * 162. 寻找峰值
+     * */
+    public int findPeakElement(int[] nums) {
+        int maxIndex=0;
+        for (int i = 1; i < nums.length; i++) {
+            if(nums[i]>nums[maxIndex])
+                maxIndex=i;
+        }
+        return maxIndex;
+    }
     public static void main(String[] a) {
         TreeNode root=new TreeNode(2);
         root.left=new TreeNode(3);

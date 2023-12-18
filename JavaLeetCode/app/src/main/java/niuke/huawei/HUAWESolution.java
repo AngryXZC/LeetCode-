@@ -269,7 +269,195 @@ public class HUAWESolution {
 
         System.out.println(res);
     }
-    public static void main(String[] args) {
+    /**
+     * HJ46 截取字符串
+     * */
+    public static void subStr(){
+        Scanner scanner=new Scanner(System.in);
+        String str= scanner.nextLine();
+        int k= scanner.nextInt();
+        System.out.println(str.substring(0,k));
 
+    }
+    /**
+     * HJ58 输入n个整数，输出其中最小的k个
+     * */
+    public static void printMin(){
+        Scanner scanner=new Scanner(System.in);
+        int n=scanner.nextInt(),k=scanner.nextInt();
+        int[] array=new int[n];
+        int min=Integer.MIN_VALUE,secondMin=Integer.MIN_VALUE+1;
+        for (int i = 0; i <n ; i++) {
+           array[i]=scanner.nextInt();
+        }
+        Arrays.sort(array);
+        for (int i = 0; i <k ; i++) {
+            System.out.print(array[i]);
+            if(i!=k)
+                System.out.print(" ");
+        }
+    }
+    /**
+     * HJ101 输入整型数组和排序标识，对其元素按照升序或降序进行排序
+     * */
+    public static void sort(){
+        Scanner scanner=new Scanner(System.in);
+        int n=scanner.nextInt();
+        Integer[] arrays=new Integer[n];
+        for (int i = 0; i <arrays.length ; i++) {
+            arrays[i]=scanner.nextInt();
+        }
+        int flag=scanner.nextInt();
+        switch (flag){
+            case 0:
+                Arrays.sort(arrays);
+                break;
+            case 1:
+                Arrays.sort(arrays,((o1, o2) -> o2.compareTo(o1)));
+                break;
+            default:break;
+        }
+        for (int item:arrays) {
+            System.out.print(item);
+            if(item!=arrays[arrays.length-1])
+                System.out.print(" ");
+        }
+    }
+    /**
+     * HJ21 简单密码
+     * */
+    public  static  void simplePassword(){
+        Scanner scanner=new Scanner(System.in);
+        String str=scanner.nextLine();
+        char[] characters= str.toCharArray();
+        for (int i=0;i<characters.length;i++) {
+            if(characters[i]>='a'&&characters[i]<='r')
+                characters[i]= (char) ((characters[i]-'a')/3+'2');
+            if(characters[i]=='s')
+                characters[i]= '7';
+            if(characters[i]=='t'||characters[i]=='u'||characters[i]=='v')
+                characters[i]='8';
+            if(characters[i]=='w'||characters[i]=='y'||characters[i]=='x'||characters[i]=='z')
+                characters[i]='9';
+            if(characters[i]>='A'&&characters[i]<'Z')
+                characters[i]= (char) (characters[i]+1+('A'-'a'));
+            if(characters[i]=='Z')
+                characters[i]='a';
+        }
+        System.out.println(String.valueOf(characters) );
+    }
+    /**
+     * HJ22 汽水瓶
+     * */
+    public static void drink(){
+        Scanner scanner=new Scanner(System.in);
+        while (true){
+            int n=scanner.nextInt();
+            if(n==0)
+                return;
+            System.out.println( drinkSoda(n));
+        }
+
+    }
+    public static int drinkSoda(int start){
+        int drink=0;
+        while (start>1){
+            int a=start/3,b=start%3;
+            drink+=a;
+            start=a+b;
+            if(start==2){
+                drink++;
+                break;
+            }
+
+        }
+        return drink;
+    }
+    /**
+     * HJ23 删除字符串中出现次数最少的字符
+     * */
+    public static void deleteCharacter(){
+        Scanner scanner=new Scanner(System.in);
+        HashMap<Character,Integer> map=new HashMap<Character, Integer>();
+        String str=scanner.nextLine();
+        char[] chars=str.toCharArray();
+        for (Character item:chars) {
+            map.put(item,map.getOrDefault(item,0)+1);
+        }
+        // 快速找出最少次数
+        int min = Integer.MAX_VALUE;
+        for (int times : map.values()) {
+            min = Math.min(min, times);
+        }
+        StringBuilder res = new StringBuilder();
+        for (char ch : str.toCharArray()) {
+            if (map.get(ch) != min) {
+                res.append(ch);
+            }
+        }
+        System.out.println(res);
+    }
+    /**
+     * HJ31 单词倒排
+     * */
+    public static void letterReverse(){
+        Scanner in = new Scanner(System.in);
+        String st=in.nextLine();
+        char[] chs=st.toCharArray();
+        for (int i=0;i<chs.length;i++) {
+            if(!(chs[i]<='z'&&chs[i]>='a'||chs[i]>='A'&&chs[i]<='Z')){
+                chs[i]=' ';
+            }
+        }
+        String s= String.valueOf(chs);
+        String[] strings=s.split(" ");
+        for (int i = strings.length-1; i >=0 ; i--) {
+            System.out.print(strings[i]);
+            if(1!=0)
+                System.out.print(" ");
+        }
+    }
+    /**
+     * HJ34 图片整理
+     * */
+    public static void  organizeImage(){
+        Scanner scanner=new Scanner(System.in);
+        String str=scanner.nextLine();
+        char[] chars=str.toCharArray();
+        Arrays.sort(chars);
+        System.out.println(String.valueOf(chars));
+    }
+    /**
+     * HJ35蛇形矩阵
+     * */
+    public static void serpentineMatrix(){
+        Scanner in = new Scanner(System.in);
+        int n= in.nextInt();
+        for (int i = 0; i <n ; i++) {
+            //TODO
+        }
+    }
+    public static void main(String[] args) {
+        drink();
+//        int word=0,space=0,number=0,other=0;
+//        Scanner in = new Scanner(System.in);
+//        String str=in.nextLine();
+//        str=str.toLowerCase();
+//        char[] chars=str.toCharArray();
+//        for (int i = 0; i <chars.length ; i++) {
+//            if(chars[i]<='9'&&chars[i]>='0')
+//                number++;
+//            else if (chars[i]<='z'&&chars[i]>='a')
+//                word++;
+//            else if(chars[i]==' ')
+//                space++;
+//            else other++;
+//
+//        }
+//
+//        System.out.println(word);
+//        System.out.println(space);
+//        System.out.println(number);
+//        System.out.println(other);
     }
 }
