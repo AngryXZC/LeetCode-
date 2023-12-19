@@ -117,14 +117,47 @@ public class EverydaySolution {
         }
         return maxIndex;
     }
-    public static void main(String[] a) {
-        TreeNode root=new TreeNode(2);
-        root.left=new TreeNode(3);
-        root.right=new TreeNode(5);
-        root.left.left=new TreeNode(8);
-        root.left.right=new TreeNode(13);
-        root.right.left=new TreeNode(21);
-        root.right.right=new TreeNode(34);
-        new EverydaySolution().reverseOddLevels(root);
+    /**
+     *
+     * 1901. 寻找峰值 II
+     *
+     * */
+    public int[] findPeakGrid(int[][] mat) {
+
+        int row = mat.length, col = mat[0].length;
+        int low = 0, high = row - 1;
+        while (low <= high) {
+            int i = (low + high) / 2;
+            int j = -1, maxElement = -1;
+            for (int k = 0; k < col; k++) {
+                if (mat[i][k] > maxElement) {
+                    j = k;
+                    maxElement = mat[i][k];
+                }
+            }
+            if (i - 1 >= 0 && mat[i][j] < mat[i - 1][j]) {
+                high = i - 1;
+                continue;
+            }
+            if (i + 1 < row && mat[i][j] < mat[i + 1][j]) {
+                low = i + 1;
+                continue;
+            }
+            return new int[]{i, j};
+        }
+        return new int[0]; // impossible
     }
+    public static void main(String[] a) {
+//        TreeNode root=new TreeNode(2);
+//        root.left=new TreeNode(3);
+//        root.right=new TreeNode(5);
+//        root.left.left=new TreeNode(8);
+//        root.left.right=new TreeNode(13);
+//        root.right.left=new TreeNode(21);
+//        root.right.right=new TreeNode(34);
+//        new EverydaySolution().reverseOddLevels(root);
+        //定义一个三行两列的整型二维数组intArray
+
+    }
+
 }
