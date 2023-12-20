@@ -147,7 +147,22 @@ public class EverydaySolution {
         }
         return new int[0]; // impossible
     }
+
+
+    /**
+    * 2828. 判别首字母缩略词*/
+    public boolean isAcronym(List<String> words, String s) {
+        if(words.size()!=s.length())
+            return false;  //长度不一致
+        for (int i = 0; i < words.size(); i++) {
+            if(words.get(i).charAt(0)!=s.charAt(i))
+                return false;
+        }
+        return true;
+    }
+
     public static void main(String[] a) {
+        new EverydaySolution().isAcronym(Arrays.asList("apple", "banana", "cat"), "abc");
 //        TreeNode root=new TreeNode(2);
 //        root.left=new TreeNode(3);
 //        root.right=new TreeNode(5);

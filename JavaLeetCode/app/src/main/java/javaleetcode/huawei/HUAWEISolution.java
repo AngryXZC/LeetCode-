@@ -437,27 +437,42 @@ public class HUAWEISolution {
    }
    /**
     *
-    1006. 笨阶乘
-    TODO
+    * 1006. 笨阶乘
     * */
    public int clumsy(int n) {
-       return recur(n,0);
+      Deque<Integer> stack=new LinkedList<>();
+      stack.push(n);
+      n--;
+      int index=0;
+      while (n>0){
+            if(index%4==0){
+                stack.push(stack.pop()*n);
+            }
+            else if(index%4==1){
+                stack.push(stack.pop()/n);
+            }
+            else if(index%4==2){
+                stack.push(n);
+            }
+            else {
+                stack.push(-n);
+            }
+            index++;
+            n--;
+      }
+      int sum=0;
+      while (!stack.isEmpty()){
+          sum+=stack.pop();
+      }
+      return sum;
    }
-   public int recur(int n,int s){
-       if(n==1&&(s%4==0||s%4==1))
-           return 1;
-       if(n==0&&(s%4==2||s%4==3))
-           return 0;
-       else if(s%4==0)
-           return n*recur(n-1, ++s);
-       else if (s%4==1)
-           return n/recur(n-1,++s);
-       else if (s%4==2)
-           return n/recur(n-1,++s);
-       else
-           return n/recur(n-1,++s);
 
-   }
+
+public static void main(String args[] ){
+         HUAWEISolution huaweiSolution=new HUAWEISolution();
+         int res=huaweiSolution.clumsy(10);
+         System.out.println(res);
+}
 
    /**
     * 三数和*/
