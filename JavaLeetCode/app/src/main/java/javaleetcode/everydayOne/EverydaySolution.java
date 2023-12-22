@@ -160,6 +160,83 @@ public class EverydaySolution {
         }
         return true;
     }
+    /**
+     * 1671. 得到山形数组的最少删除次数
+     * 我们定义 arr 是 山形数组 当且仅当它满足：
+     *
+     * arr.length >= 3
+     * 存在某个下标 i （从 0 开始） 满足 0 < i < arr.length - 1 且：
+     * arr[0] < arr[1] < ... < arr[i - 1] < arr[i]
+     * arr[i] > arr[i + 1] > ... > arr[arr.length - 1]
+     * 给你整数数组 nums​ ，请你返回将 nums 变成 山形状数组 的​ 最少 删除次数。
+     * */
+public int minimumMountainRemovals(int[] nums) {
+    int n = nums.length;
+    int[] left = new int[n];
+    int[] right = new int[n];
+    Arrays.fill(left, 1);
+    Arrays.fill(right, 1);
+    for (int i = 1; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            if (nums[i] > nums[j])
+                left[i] = Math.max(left[i], left[j] + 1);
+        }
+    }
+    for (int i = n - 2; i >= 0; i--) {
+        for (int j = n - 1; j > i; j--) {
+            if (nums[i] > nums[j])
+                right[i] = Math.max(right[i], right[j] + 1);
+        }
+    }
+    int res = 0;
+    for (int i = 0; i < n; i++) {
+        if (left[i] > 1 && right[i] > 1)
+            res = Math.max(res, left[i] + right[i] - 1);
+    }
+    return n - res;
+}
+/**
+ 2866. 美丽塔 II
+ 给你一个长度为 n 下标从 0 开始的整数数组 maxHeights 。
+
+ 你的任务是在坐标轴上建 n 座塔。第 i 座塔的下标为 i ，高度为 heights[i] 。
+
+ 如果以下条件满足，我们称这些塔是 美丽 的：
+
+ 1 <= heights[i] <= maxHeights[i]
+ heights 是一个 山脉 数组。
+ 如果存在下标 i 满足以下条件，那么我们称数组 heights 是一个 山脉 数组：
+
+ 对于所有 0 < j <= i ，都有 heights[j - 1] <= heights[j]
+ 对于所有 i <= k < n - 1 ，都有 heights[k + 1] <= heights[k]
+ 请你返回满足 美丽塔 要求的方案中，高度和的最大值 。
+ * */
+public long maximumSumOfHeights(List<Integer> maxHeights) {
+int n = maxHeights.size();
+    int[] left = new int[n];
+    int[] right = new int[n];
+    Arrays.fill(left, 1);
+    Arrays.fill(right, 1);
+    for (int i = 1; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            if (maxHeights.get(i) > maxHeights.get(j))
+                left[i] = Math.max(left[i], left[j] + 1);
+        }
+    }
+    for (int i = n - 2; i >= 0; i--) {
+        for (int j = n - 1; j > i; j--) {
+            if (maxHeights.get(i) > maxHeights.get(j))
+                right[i] = Math.max(right[i], right[j] + 1);
+        }
+    }
+    long res = 0;
+    for (int i = 0; i < n; i++) {
+        if (left[i] > 1 && right[i] > 1)
+            res = Math.max(res, left[i] + right[i] - 1);
+    }
+    return res;
+}
+
 
     public static void main(String[] a) {
         new EverydaySolution().isAcronym(Arrays.asList("apple", "banana", "cat"), "abc");
