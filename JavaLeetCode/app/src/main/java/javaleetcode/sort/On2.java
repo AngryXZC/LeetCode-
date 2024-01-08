@@ -122,5 +122,33 @@ public class On2 {
     /**
      * 插入排序
      * */
-    //TODO
+
+    //交换法插入排序
+    public static void insertSort(int[] arr){
+        //从第二个元素开始，将其插入到前面已经排好序的序列中
+        for (int i = 1; i <arr.length ; i++) {
+            //记录当前数字下标
+            int j=i;
+            //如果当前数字比前一个数字小，就交换
+            while(j>=1&&arr[j]<arr[j-1]){
+                swap(arr,j,j-1);
+                j--; //这边这个j--很重要，不然会死循环
+            }
+        }
+    }
+    //移动法插入排序
+    public static void insertSort2(int[] arr){
+        //从第二个元素开始，将其插入到前面已经排好序的序列中
+        for (int i = 1;i < arr.length ; i++) {
+            int currentNum=arr[i];
+            int j=i-1;
+            //寻找插入位置的过程中，不断的将比currentNum大的元素向后移动
+            while(j>=0&&arr[j]>currentNum){
+                arr[j+1]=arr[j];
+                j--;
+            }
+            //两种情况会跳出循环，一是找到了插入位置，二是j=-1
+            arr[j+1]=currentNum;
+        }
+    }
 }
