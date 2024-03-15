@@ -36,8 +36,10 @@ public class Solution {
     }
 
     public int minSwapTimes(int[] data){
+        //使用计算有多少个1
         int ones= Arrays.stream(data).sum();
         int cnt_ones=0,max_one=0;
+        //滑动窗口的左边和右边
         int left=0,right=0;
         while (right<data.length){
             cnt_ones+=data[right++];
