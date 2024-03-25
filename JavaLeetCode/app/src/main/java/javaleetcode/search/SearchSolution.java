@@ -19,41 +19,23 @@ public class SearchSolution {
         if(nums.length==0){
             return new int[]{-1,-1};
         }
-        //二分查找逻辑
-        int left = 0, right = nums.length - 1;
-        int[] res = new int[]{-1, -1};
-        while(left<right){
-            int mid=left+(right-left)/2;
-            if(nums[mid]<target){
-                left=mid+1;
+        int[] res=new int[]{-1,-1};
+        int index_of_target=binarySearch(nums,target);
+
+        if(index_of_target!=-1){
+            int left=index_of_target,right=index_of_target;
+            for (int i =index_of_target ; i >0 ; i--) {
+                if(nums[i]!=nums[index_of_target]){
+                    left=i+1;
+                    break;
+                }
             }
-            else{
-                right=mid;
-            }
+            //TODO
         }
-        //判断是否存在target
-        if(nums[left]!=target){
-            return res;
-        }
-        //找到左边界
-        res[0]=left;
-        //找到右边界
-        right=nums.length-1;
-        //二分查找逻辑
-        while(left<right){
-            int mid=left+(right-left)/2+1;
-            if(nums[mid]>target){
-                right=mid-1;
-            }
-            else{
-                left=mid;
-            }
-        }
-        res[1]=right;
-        return res;
+        return new int[]{-1,-1};
     }
 
-    public int binarySearch(int[] nums, int target,boolean lower){
+    public int binarySearch(int[] nums, int target){
         int left=0,right=target-1,ans=-1;
         while (left<right){
             int mid=(left+right)/2;
@@ -63,10 +45,8 @@ public class SearchSolution {
             else if (nums[mid]<target){
                 left=mid+1;
             }
-            else{
-                ans=mid;
-            }
+            else return mid;
         }
-        return ans;
+        return -1;
     }
 }
