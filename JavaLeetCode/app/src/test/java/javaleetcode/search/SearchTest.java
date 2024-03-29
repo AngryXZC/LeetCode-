@@ -17,6 +17,6 @@ public class SearchTest {
     @Test
     public void testSearch(){
         javaleetcode.search.SearchSolution searchSolution=new javaleetcode.search.SearchSolution();
-        System.out.println(searchSolution.searchRange(new int[]{5,7,7,8,8,10},8) );
+        System.out.println(searchSolution.searchRange(new int[]{1},1) );
     }
 }

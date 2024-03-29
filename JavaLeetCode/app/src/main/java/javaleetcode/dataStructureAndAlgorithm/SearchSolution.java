@@ -8,6 +8,8 @@ import java.util.Map;
  * @author xzc
  * @date 2024/3/15 17 57:37
  * @description 查找
+ * TODO
+ * 建议反复咀嚼
  */
 public class SearchSolution {
     /**
@@ -32,29 +34,43 @@ public class SearchSolution {
      * 某班级考试成绩按非严格递增顺序记录于整数数组 scores，请返回目标成绩 target 的出现次数。
      */
     public int countTarget(int[] scores, int target) {
-        int left = 0, right = scores.length - 1;
-        int count = 0;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (scores[mid] == target) {
-                count++;
-                int temp = mid;
-                while (temp > 0 && scores[temp - 1] == target) {
-                    count++;
-                    temp--;
-                }
-                temp = mid;
-                while (temp < scores.length - 1 && scores[temp + 1] == target) {
-                    count++;
-                    temp++;
-                }
-                return count;
-            } else if (scores[mid] < target) {
-                left = mid + 1;
-            } else {
-                right = mid - 1;
-            }
+        // 搜索右边界 right
+        int i = 0, j = scores.length - 1;
+        while(i <= j) {
+            int m = (i + j) / 2;
+            if(scores[m] <= target) i = m + 1;
+            else j = m - 1;
         }
-        return count;
+        int right = i;
+        // 若数组中无 target ，则提前返回
+        if(j >= 0 && scores[j] != target) return 0;
+        // 搜索左边界 right
+        i = 0; j = scores.length - 1;
+        while(i <= j) {
+            int m = (i + j) / 2;
+            if(scores[m] < target) i = m + 1;
+            else j = m - 1;
+        }
+        int left = j;
+        return right - left - 1;
+    }
+    /**
+     * 点名
+     * 某班级 n 位同学的学号为 0 ~ n-1。点名结果记录于升序数组 records。假定仅有一位同学缺席，请返回他的学号。
+     *
+     * */
+    public int takeAttendance(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        //区间为：左闭右闭
+
+        while(left <= right) {
+            int m = left + (right - left) / 2;
+
+            if(nums[m] == m)
+                left = m + 1;
+            else
+                right = m - 1;
+        }
+        return left;
     }
 }

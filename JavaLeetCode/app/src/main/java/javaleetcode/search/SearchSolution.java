@@ -25,19 +25,28 @@ public class SearchSolution {
         if(index_of_target!=-1){
             int left=index_of_target,right=index_of_target;
             for (int i =index_of_target ; i >0 ; i--) {
-                if(nums[i]!=nums[index_of_target]){
-                    left=i+1;
-                    break;
+                if(nums[i]==nums[index_of_target]){
+                    left=i;
                 }
+                else
+                    break;
             }
-            //TODO
+            for (int i = index_of_target; i < nums.length; i++) {
+                if(nums[i]==nums[index_of_target])
+                    right=i;
+                else
+                    break;
+            }
+            res[0]=left;
+            res[1]=right;
+            return res;
         }
         return new int[]{-1,-1};
     }
 
     public int binarySearch(int[] nums, int target){
-        int left=0,right=target-1,ans=-1;
-        while (left<right){
+        int left=0,right=nums.length-1,ans=-1;
+        while (left<=right){
             int mid=(left+right)/2;
             if(nums[mid]>target){
                 right=mid-1;
