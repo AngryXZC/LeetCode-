@@ -100,6 +100,30 @@ public class SortSolution {
         return selectK(arr, p + 1, r, k, rnd);
     }
 
+
+    //非递归实现
+    public int findKthLargest3(int[] nums, int k) {
+
+        Random rnd = new Random();
+        return selectK2(nums, nums.length - k, rnd);
+    }
+
+    private int selectK2(int[] arr, int k, Random rnd){
+
+        int l = 0, r = arr.length - 1;
+        while(l <= r){
+
+            int p = partition(arr, l, r, rnd);
+
+            if(k == p) return arr[p];
+
+            if(k < p) r = p - 1;
+            else l = p + 1;
+        }
+
+        throw new RuntimeException("No Solution");
+    }
+
     private int partition(int[] arr, int l, int r, Random rnd){
 
         // 生成 [l, r] 之间的随机索引
